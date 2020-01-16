@@ -33,28 +33,6 @@
     </div>
     <script src="./js/jquery-1.12.4.min.js"></script>
     <script>
-        // 定义一个对象，其中一个方法是login
-        var user = {
-            login: function(name,password) {
-                $.post('http://192.168.172.82:8000/admin/login',{
-                    'user_name': name,
-                    'password': password
-                }).then(function(res){
-                    console.log(res)
-                    //2. 反馈做后续的动作
-                    if(res.code === 200){
-                        // alert('登陆成功')
-                        // 跳到主页
-                        window.location.href = "./index.html"
-                    } else {
-                        // 失败，直接打出错别信息
-                        alert(res.msg)
-                    }
-                })
-            }
-        }
-    </script>
-    <script>
         // 1. 用户登陆
         // 思路：
         // 给按钮添加点击事件：
@@ -67,10 +45,32 @@
                 alert('不能为空')
                 return
             }
-            
-            // 用户登陆
-            user.login(name, password)
-            
+            // $.ajax({
+            //     url:'http://192.168.172.82:8000/admin/login',
+            //     type:'post',
+            //     data:{
+            //         'user_name': name,
+            //         'password': password
+            //     },
+            //     success:function(res){
+            //         console.log(res)
+            //     }
+            // })
+            // $.post(url,数据).then(回调)
+            // 缺少语义
+            $.post('http://192.168.172.82:8000/admin/login',{
+                'user_name': name,
+                'password': password
+            }).then(function(res){
+                console.log(res)
+                //2. 反馈做后续的动作
+                if(res.code === 200){
+                    alert('登陆成功')
+                } else {
+                    // 失败，直接打出错别信息
+                    alert(res.msg)
+                }
+            })
         })
     </script> 
 </body>
