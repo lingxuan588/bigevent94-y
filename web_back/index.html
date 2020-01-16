@@ -44,15 +44,14 @@
         <div class="user_center_link">
             <a href="user.html" onclick="setMenu(3,0)" target="main_frame">个人中心</a>
             <img src="images/2.jpg" alt="person">
-            <a href="#"><i class="iconfont icon-tuichu"></i> 退出</a>
+            <!-- href="javascript:;" 不要让a标签跳转 -->
+            <a href="javascript:;" id="btnLogout"><i class="iconfont icon-tuichu"></i> 退出</a>
         </div>
     </div>
 
     <div class="main" id="main_body">
         <iframe src="main_count.html" frameborder="0" id="main_frame" name="main_frame" frameborder="0" scrolling="auto"></iframe>
     </div>
-
-
 
     <script>
         var $level01 = $('.level01');
@@ -102,6 +101,32 @@
            }
         }
 
+    </script>
+    <script>
+        // 定义一对象，其中一个方法叫退出
+        var user = {
+            logout: function() {
+                $.post('http://192.168.172.82:8000/admin/logout').then(function(res){
+                    console.log(res);
+                    if(res.code === 200){
+                        alert('成功退出')
+                        window.location.href = "./login.html"
+                    } else {
+                        alert(res.msg)
+                    }
+                })
+            }
+        }
+    </script>
+
+    <script>
+        // 1. 用户退出
+        // 思路：
+        // 请求  退出接口
+        $('#btnLogout').click(function(){
+            // 用户退出
+            user.logout()
+        })
     </script>
 
 </body>
