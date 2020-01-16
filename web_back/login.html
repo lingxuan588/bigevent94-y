@@ -23,11 +23,54 @@
             <form class="login_form">
                 <i class="iconfont icon-user"></i>
                 <i class="iconfont icon-key"></i>
-                <input type="text" class="input_txt" placeholder="邮箱/手机号">
-                <input type="password" class="input_pass" placeholder="密码">
-                <input type="submit" class="input_sub" value="登 录">
+                <input type="text" id="username" class="input_txt" placeholder="用户名">
+                <input type="password" id="password" class="input_pass" placeholder="密码">
+                <!-- 如果是submit的按钮在表单中，它会有一个提交的动作 -->
+                <!-- 把submit改成button，则它就不会提交表单了 -->
+                <input id="btnLogin" type="button" class="input_sub" value="登 录">
             </form>
         </div>
-    </div> 
+    </div>
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script>
+        // 1. 用户登陆
+        // 思路：
+        // 给按钮添加点击事件：
+        // （1）收集用户信息，简单判断.
+        //  (2) 请求ajax接口，根据接口的反馈做后续的动作
+        $('#btnLogin').click(function(){
+            var name =  $('#username').val().trim()
+            var password = $('#password').val().trim()
+            if(name.length === 0 || password.length === 0){
+                alert('不能为空')
+                return
+            }
+            // $.ajax({
+            //     url:'http://192.168.172.82:8000/admin/login',
+            //     type:'post',
+            //     data:{
+            //         'user_name': name,
+            //         'password': password
+            //     },
+            //     success:function(res){
+            //         console.log(res)
+            //     }
+            // })
+            // $.post(url,数据).then(回调)
+            $.post('http://192.168.172.82:8000/admin/login',{
+                'user_name': name,
+                'password': password
+            }).then(function(res){
+                console.log(res)
+                //2. 反馈做后续的动作
+                if(res.code === 200){
+                    alert('登陆成功')
+                } else {
+                    // 失败，直接打出错别信息
+                    alert(res.msg)
+                }
+            })
+        })
+    </script> 
 </body>
 </html>
