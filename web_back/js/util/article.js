@@ -11,6 +11,15 @@ var article = {
     // 删除文章
     del:function(id){
         return $.get(APILIST.article_del,{'id': id})
+    },
+    add:function(fd){
+        return $.ajax({
+            url: APILIST.article_add,
+            type: 'post',
+            data: fd,
+            processData:false, //不允许处理数据
+            contentType:false, //不要设置请求头
+        })
     }
 
 }
