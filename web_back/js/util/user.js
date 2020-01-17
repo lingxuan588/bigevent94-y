@@ -19,7 +19,8 @@ var user = {
     },
     // 获取信息
     getInfo:function(){
-        return $.get(APILIST.user_getInfo)
+        var t = $.get(APILIST.user_getInfo)
+        console.log(t)
+        return  t
     }
 }
-
