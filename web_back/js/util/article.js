@@ -2,8 +2,9 @@
 
 var article = {
     // 获取
-    get:function(){
-        return $.get(APILIST.article_get)
+    // page 就是当前要取出来的第几页的数据
+    get:function(page){
+        return $.get(APILIST.article_get,{'page': page})
     },
     // 添加文章类型
     // add:function(name,slug){
